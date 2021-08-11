@@ -8,7 +8,7 @@ import dash_core_components as dcc
 import dash_html_components as html
 from dash.dependencies import Input, Output
 
-df = pd.read_csv("/Users/kevinmcdonough/Documents/Flatiron/phase_3/blog/dash_youtube/Dash-by-Plotly/Other/Dash_Introduction/clean_df.csv", index_col=0)
+df = pd.read_csv("Data/clean_df.csv", index_col=0)
 
 colors = {
     'background': '#111111',
@@ -65,7 +65,6 @@ app.layout = html.Div(style={'backgroundColor': colors['background']}, children=
     html.Div([
         dcc.Graph(id='my_bar_chart'),
     ], style={'display': 'inline-block', 'width': '49%'}),
-    html.Div(id='my-hoverdata', style={'color': colors['text']})
 ])
 
 # ------------------------------------------------------------------------------
@@ -124,13 +123,6 @@ def update_chart(hoverData, slct_chart):
     df_new = df_new[df_new['state'] == state_name]
     print(state_name)
     return create_chart(df_new, slct_chart, hoverData)
-
-@app.callback(
-Output('my-hoverdata', 'children'),
-[Input('my_ufo_map', 'hoverData')])
-
-def callback_image(hoverData):
-    return json.dumps(hoverData, indent=2)
 
 
 # ------------------------------------------------------------------------------
